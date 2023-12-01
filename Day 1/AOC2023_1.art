@@ -1,0 +1,26 @@
+table: #[
+    one: "1"
+    two: "2"
+    three: "3"
+    four: "4"
+    five: "5"
+    six: "6"
+    seven: "7"
+    eight: "8"
+    nine: "9"
+]
+
+translate: function[s][
+    try?[
+        get table s
+    ] else [
+        return s
+    ]
+]
+
+getdigits: function [line][
+    capt: match.capture line {(?=(one|two|three|four|five|six|seven|eight|nine|\d))}
+    (translate (first capt)) ++ (translate (last capt))
+]
+
+print sum map read.lines "inputs" 'l -> to :integer (getdigits l)
