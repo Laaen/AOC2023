@@ -1,0 +1,18 @@
+max: #[red: 12 green: 13 blue: 14]
+
+processline: function[line][
+    ok: true
+    ;; The ID
+    id: chop get split.by: " " line 1
+    ;; Check if value too big
+    content: drop split.by: {/,|;|:/} line 1
+    loop content [x][
+        [v k]: split.by: " " strip x
+        if (get max k) < (to :integer v) -> ok: false
+    ]
+    if? true? ok -> return to :integer id
+    else -> return 0
+]
+
+infos: read.lines "inputs"
+print sum (map infos 'x -> processline x)

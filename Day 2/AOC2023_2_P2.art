@@ -1,0 +1,12 @@
+processline: function[line][
+    tmp: #[red: 0 blue: 0 green: 0]
+    content: drop split.by: {/,|;|:/} line 1
+    loop content [x][
+        [v k]: split.by: " " strip x
+        if (get tmp k) < (to :integer v) -> set tmp k (to :integer v)
+    ]
+    return product values tmp
+]
+
+infos: read.lines "inputs"
+print sum (map infos 'x -> processline x)
