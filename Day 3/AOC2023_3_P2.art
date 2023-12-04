@@ -1,0 +1,19 @@
+;; Based on @drkameleon solution (https://github.com/drkameleon/arturo-aoc-2023/blob/main/day-03/day-03-a.art)
+
+infos: read.lines "inputs"
+infos: @[repeat "." size first infos] ++ infos ++ @[repeat "." size first infos]
+
+res: []
+loop 0..(size infos)-1 'x [
+    loop get match.full (get infos x) {/[^0-9.]/} "matches" 'm[
+        nb: []
+        loop (x-1)..(x+1) 'y[
+            loop get match.full (get infos y) {/[0-9]+/} "matches" 'elt[
+                if in? (first m\1) ((dec first elt\1)..(inc last elt\1)) -> append 'nb to :integer elt\0 ;print ~"Position symbole : |first m\1| y : |y| val : |elt\0| Range : |((dec first elt\1)..(inc last elt\1))|"
+            ]
+        ]
+        if (size nb) = 2 -> append 'res product nb
+    ]
+]
+
+print sum res

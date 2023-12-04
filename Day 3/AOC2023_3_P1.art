@@ -1,0 +1,17 @@
+;; Based on @drkameleon solution (https://github.com/drkameleon/arturo-aoc-2023/blob/main/day-03/day-03-a.art)
+
+infos: read.lines "inputs"
+infos: @[repeat "." size first infos] ++ infos ++ @[repeat "." size first infos]
+
+res: []
+loop 0..(size infos)-1 'x [
+    loop get match.full (get infos x) {/[0-9]+/} "matches" 'm[
+        loop (x-1)..(x+1) 'y[
+            loop get match.full (get infos y) {/[^0-9.]/} "matches" 'elt[
+                if in? (first elt\1) ((dec first m\1)..(inc last m\1)) -> append 'res to :integer m\0
+            ]
+        ]
+    ]
+]
+
+print sum res

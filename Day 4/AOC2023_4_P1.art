@@ -1,0 +1,12 @@
+input: read.lines "inputs"
+
+res: []
+
+loop input 'line [
+    [winner, current]: do [map split.by: "|" (last split.by: ":" line) 'x -> to :block x]
+    print (size select current 'y -> contains? winner y)
+    print select current 'y -> contains? winner y
+    append 'res pow 2 (size select current 'y -> contains? winner y)-1
+]
+
+print res
