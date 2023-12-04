@@ -1,0 +1,14 @@
+input: read.lines "inputs"
+
+res: array.of: 206 1
+index: 0
+loop input 'line [
+    [winner, current]: do [map split.by: "|" (last split.by: ":" line) 'x -> to :block x]
+    nb: size select current 'cur -> contains? winner cur
+    if nb = 0 [inc 'index continue]
+    loop 1..(nb) 'y [
+        set res (index + y) ((get res index + y) + (get res index))
+    ]
+    inc 'index
+]
+print sum res
