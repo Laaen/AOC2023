@@ -1,0 +1,3 @@
+
+in: @[join match (first read.lines "inputs") {/\d+/} join match (get read.lines "inputs" 1) {/\d+/}]
+print sum map select range 0 to :integer in\0 'v -> ((to :integer v) * ((to :integer in\0) - (to :integer v))) > (to :integer in\1) => 1
