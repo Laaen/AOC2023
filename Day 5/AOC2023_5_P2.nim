@@ -72,8 +72,6 @@ for elt in seedRanges(lines[0].split(":")[^1]):
     rng.add(elt.a)
     rng.add(elt.b)
 
-echo rng
-
 var res_range : seq[int]
 for elt in rng:
     var trad = elt
@@ -88,15 +86,18 @@ let ranges = collect:
     for elt in seedRanges(lines[0].split(":")[^1]):
         elt
 
+var test : int
 var res = 878888888888888888
 for elt in ranges[(res_range.find(res_range.min)/2).toInt - 1]:
     var trad = elt
     for mp in map:
         for j in mp:
-            if (let offset = trad - j[1]; offset >= 0 and offset <= j[2]):
+            if (let offset = trad - j[1]; offset >= 0 and offset < j[2]):
                 trad = j[0] + offset
                 break
     if trad < res:
+        test = elt
         res = trad
 
+echo test
 echo res

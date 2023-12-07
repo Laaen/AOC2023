@@ -29,9 +29,10 @@ for elt in seeds:
     var trad = elt
     for mp in map:
         for j in mp:
-            if (let offset = trad - j[1]; offset >= 0 and offset <= j[2]):
+            if (let offset = trad - j[1]; offset >= 0 and offset < j[2]):
                 trad = j[0] + offset
                 break
     res.add(trad)
 
+echo res
 echo res.min
