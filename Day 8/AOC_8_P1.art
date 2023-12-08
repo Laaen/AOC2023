@@ -1,0 +1,21 @@
+infos: #[
+
+]
+
+;; Get the left - right qequence
+seq: first read.lines "inputs"
+;; Fill the dict with infos
+loop map select read.lines "inputs" 'x -> match? x {/^[A-Z]{3}.*/} 'y -> split.by: " = " y 'z -> set infos first z replace last z ["(" ")"] "" 
+
+res: 0
+position: "AAA"
+;; The main program
+loop.forever split seq 's[
+    inc 'res 
+    case [s]
+        when?[="L"] -> position: first split.by: ", " get infos position
+        else -> position: last split.by: ", " get infos position
+    if? position = "ZZZ" -> break
+]
+
+print res
