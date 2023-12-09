@@ -1,0 +1,17 @@
+infos: map read.lines "inputs" 'l -> map split.by: " " l 's -> to :integer s
+
+print sum map infos 'elt[
+    tmpArr: reverse elt
+    tmpVal: 0 
+    ok: false
+    until[
+        tmp: []
+        loop 0..(size tmpArr)-2 'x[
+            append 'tmp (sub get tmpArr x+1 get tmpArr x)
+        ]
+        add 'tmpVal (last tmp)
+        if? (size unique tmp) = 1 -> ok: true
+        else -> tmpArr: tmp
+    ][ok = true]
+    add tmpVal last reverse elt
+]
