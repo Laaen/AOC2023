@@ -63,8 +63,14 @@ while true:
         break
 
 # Detect the cycle
-let start = arr_resp[0..find(arr_resp, res)]
-echo start
-echo arr_resp
+# The beginning, not related to the cycle
+let first_occurence = find(arr_resp, res)
+let start = arr_resp[0..first_occurence]
 
-let cycle_len = arr_resp[0..(find(arr_resp, res))].len
+let remaining = arr_resp[start.len..^1]
+let cycle_len = remaining.len
+
+var idx = 1000000000 - start.len
+idx = (idx mod cycle_len) - 1
+echo remaining[idx]
+
